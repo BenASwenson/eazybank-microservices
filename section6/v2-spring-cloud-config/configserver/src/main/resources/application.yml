@@ -2,14 +2,44 @@ spring:
   application:
     name: "configserver"
   profiles:
-    active: native
+    #active: native
+    active: git
   cloud:
     config:
       server:
-        native:
-          search-locations: "file:///C://Users//ben//Documents//config"
-        #search-locations: "classpath:/config"
+        #native:
+          #search-locations: "file:///C://Users//ben//Documents//config"
+          #search-locations: "classpath:/config"
+        git:
+          uri: "https://github.com/BenASwenson/eazybank-config.git"
+          default-label: main
+          timeout: 5
+          clone-on-start: true
+          force-pull: true
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    stream:
+      username: "guest"
+      password: "guest"
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+encrypt:
+  key: "45D81U34OK{R!AIN987"
 
 server:
   port: 8071
