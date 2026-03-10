@@ -1,0 +1,53 @@
+package com.eazybytes.accounts;
+
+import com.eazybytes.accounts.dto.AccountsContactInfoDto;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+@SpringBootApplication
+@EnableFeignClients
+/*@ComponentScans({ @ComponentScan("com.eazybytes.accounts.controller") })
+@EnableJpaRepositories("com.eazybytes.accounts.repository")
+@EntityScan("com.eazybytes.accounts.model")*/
+@EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
+@EnableConfigurationProperties(value = {AccountsContactInfoDto.class})
+@OpenAPIDefinition(
+		info = @Info(
+				title = "Accounts microservice REST API Documentation",
+				description = "EazyBank Accounts microservices REST API Documentation",
+				version = "v1",
+				contact = @Contact(
+						name = "Ben Swenson",
+						email = "info@benswenson.net",
+						url = "https://www.benswenson.net"
+				),
+				license = @License(
+						name = "Apache 2.0",
+						url = "https://www.benswenson.net"
+				)
+		),
+		externalDocs = @ExternalDocumentation(
+				description = "EazyBank Accounts microservice REST API Documentation",
+				url = "https://www.benswenson.net"
+		)
+)
+public class AccountsApplication {
+
+	public static void main(String[] args) {
+
+		SpringApplication.run(AccountsApplication.class, args);
+	}
+
+}
